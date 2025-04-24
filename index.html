@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ミニAmazon風ショップ</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-color: #f2f2f2;
+      }
+
+      header {
+        background-color: #232f3e;
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .cart {
+        background: #f90;
+        color: #000;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-weight: bold;
+      }
+
+      main {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .product {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 200px;
+        margin: 10px;
+        padding: 15px;
+        text-align: center;
+      }
+
+      .product img {
+        width: 100%;
+        height: 150px;
+        object-fit: contain;
+      }
+
+      .product h3 {
+        margin: 10px 0;
+        font-size: 1.1rem;
+      }
+
+      .product button {
+        background: #ff9900;
+        border: none;
+        padding: 10px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+
+      .product button:hover {
+        background: #e68a00;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">Mini Amazon</div>
+      <div class="cart">🛒 カート: <span id="cart-count">0</span> 個</div>
+    </header>
+
+    <main id="product-list">
+      <!-- 商品カードがここにJSで挿入されます -->
+    </main>
+
+    <script>
+      const products = [
+        {
+          id: 1,
+          name: "ワイヤレスイヤホン",
+          price: 2980,
+          image: "./images/earphone.png",
+        },
+        {
+          id: 2,
+          name: "ゲーミングマウス",
+          price: 4580,
+          image: "./images/mouse.png",
+        },
+        {
+          id: 3,
+          name: "USB-C ケーブル",
+          price: 980,
+          image: "./images/usb.png",
+        },
+        {
+          id: 4,
+          name: "ノートPCスタンド",
+          price: 3180,
+          image: "./images/stand.png",
+        },
+      ];
+
+      const productList = document.getElementById("product-list");
+      const cartCount = document.getElementById("cart-count");
+      let cart = [];
+
+      function updateCartCount() {
+        cartCount.textContent = cart.length;
+      }
+
+      function addToCart(product) {
+        cart.push(product);
+        updateCartCount();
+      }
+
+      function renderProducts() {
+        products.forEach((product) => {
+          const div = document.createElement("div");
+          div.className = "product";
+          div.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" />
+          <h3>${product.name}</h3>
+          <p>¥${product.price.toLocaleString()}</p>
+          <button onclick='addToCart(${JSON.stringify(
+            product
+          )})'>カートに追加</button>
+        `;
+          productList.appendChild(div);
+        });
+      }
+
+      renderProducts();
+    </script>
+  </body>
+</html>

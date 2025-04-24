@@ -2,7 +2,14 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <title>ミニAmazon風ショップ</title>
+    <title>Amazon風ショップ</title>
+    <!-- Swiper CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -73,13 +80,44 @@
       .product button:hover {
         background: #e68a00;
       }
+      .swiper-container {
+        width: 100%;
+        max-width: 960px;
+        height: 200px;
+        margin: 20px auto;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .swiper-slide img {
+        width: 100%;
+        height: 240%;
+        object-fit: cover;
+      }
     </style>
   </head>
   <body>
     <header>
-      <div class="logo">Mini Amazon</div>
+      <div class="logo">amozan.co.jp</div>
       <div class="cart">🛒 カート: <span id="cart-count">0</span> 個</div>
     </header>
+
+    <!-- 広告バナー風スライダー -->
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="./images/ad1.jpg" alt="広告1" />
+        </div>
+        <div class="swiper-slide">
+          <img src="./images/ad2.jpg" alt="広告2" />
+        </div>
+        <div class="swiper-slide">
+          <img src="./images/ad3.jpg" alt="広告3" />
+        </div>
+      </div>
+      <!-- ページネーション（丸ポチ） -->
+      <div class="swiper-pagination"></div>
+    </div>
 
     <main id="product-list">
       <!-- 商品カードがここにJSで挿入されます -->
@@ -143,6 +181,18 @@
       }
 
       renderProducts();
+
+      const swiper = new Swiper(".swiper-container", {
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+      });
     </script>
   </body>
 </html>
